@@ -1,0 +1,30 @@
+{
+    "name": "iter8/ldaprecord-bundle",
+    "type": "symfony-bundle",
+    "description": "LdapRecord for Symfony bundle",
+    "license": "MIT",
+    "require": {
+        "php": "^7.2",
+        "directorytree/ldaprecord": "^2.0",
+        "symfony/framework-bundle": "^4.4 || ^5.0"
+    },
+    "require-dev": {
+        "ergebnis/composer-normalize": "^2.11",
+        "friendsofphp/php-cs-fixer": "^2.17",
+        "phpunit/phpunit": "^8.0"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Iter8\\LdapRecordBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "Resources/",
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "stable"
+}
