@@ -8,12 +8,13 @@ use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
+/**
+ * @internal
+ */
 class Iter8LdapRecordExtension extends ConfigurableExtension
 {
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container)
     {
-        dump($mergedConfig);
-
         if ($mergedConfig['use_ssl'] && $mergedConfig['use_tls']) {
             throw new InvalidArgumentException('Cannot configure AD/LDAP connection to use both TLS and SSL, please pick one.');
         }
