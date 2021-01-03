@@ -5,7 +5,7 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="iter8_ldaprecord.connection" class="LdapRecord\Connection" public="true">
+        <service id="iter8_ldap_record.connection" class="LdapRecord\Connection" public="true">
             <argument />
         </service>
     </services>

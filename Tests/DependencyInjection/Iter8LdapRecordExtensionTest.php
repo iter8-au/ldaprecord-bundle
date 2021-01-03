@@ -1,9 +1,9 @@
 <?php
 
-namespace Iter8\LdapRecordBundle\Tests\DependencyInjection;
+namespace Iter8\Bundle\LdapRecordBundle\Tests\DependencyInjection;
 
 use InvalidArgumentException;
-use Iter8\LdapRecordBundle\DependencyInjection\Iter8LdapRecordExtension;
+use Iter8\Bundle\LdapRecordBundle\DependencyInjection\Iter8LdapRecordExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
