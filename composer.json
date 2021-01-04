@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Iter8\\LdapRecordBundle\\": ""
+            "Iter8\\Bundle\\LdapRecordBundle\\": ""
         },
         "exclude-from-classmap": [
             "/Tests/"

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Iter8\LdapRecordBundle\DependencyInjection;
+namespace Iter8\Bundle\LdapRecordBundle\DependencyInjection;
 
 use InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

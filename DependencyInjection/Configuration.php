@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Iter8\LdapRecordBundle\DependencyInjection;
+namespace Iter8\Bundle\LdapRecordBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
