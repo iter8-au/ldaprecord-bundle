@@ -23,12 +23,12 @@ class Iter8LdapRecordExtension extends ConfigurableExtension
         unset($mergedConfig['auto_connect']);
 
         $container
-            ->getDefinition('iter8_ldaprecord.connection')
+            ->getDefinition('iter8_ldap_record.connection')
             ->replaceArgument(0, $mergedConfig);
 
         if ($shouldAutoConnect) {
             $container
-                ->getDefinition('iter8_ldaprecord.connection')
+                ->getDefinition('iter8_ldap_record.connection')
                 ->addMethodCall('connect');
         }
     }

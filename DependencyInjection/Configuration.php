@@ -17,7 +17,7 @@ final class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('iter8_ldaprecord');
+        $treeBuilder = new TreeBuilder('iter8_ldap_record');
 
         $rootNode = $treeBuilder->getRootNode();
 
