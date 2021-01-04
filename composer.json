@@ -22,9 +22,13 @@
             "Iter8\\LdapRecordBundle\\": ""
         },
         "exclude-from-classmap": [
-            "Resources/",
             "/Tests/"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "": "Tests/DependencyInjection"
+        }
     },
     "minimum-stability": "dev"
 }
