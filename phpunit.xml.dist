@@ -15,7 +15,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="Iter8LdapRecordBundle for the Symfony Framework">
+        <testsuite name="Iter8LdapRecordBundle Test Suite">
             <directory>./Tests</directory>
         </testsuite>
     </testsuites>
@@ -24,7 +24,6 @@
         <whitelist>
             <directory>./</directory>
             <exclude>
-                <directory>./Resources</directory>
                 <directory>./Tests</directory>
                 <directory>./vendor</directory>
             </exclude>

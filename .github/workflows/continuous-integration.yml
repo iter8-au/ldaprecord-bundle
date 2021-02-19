@@ -1,0 +1,78 @@
+# Compiled from the following:
+# - https://github.com/doctrine/DoctrineMigrationsBundle/blob/b31e69f/.github/workflows/continuous-integration.yml
+# - https://github.com/FriendsOfSymfony/FOSRestBundle/blob/780be7e/.github/workflows/continuous-integration.yml
+# - https://github.com/schmittjoh/serializer/blob/955efed/.github/workflows/ci.yaml
+
+name: "Continuous Integration"
+
+on: [push, pull_request]
+
+jobs:
+  phpunit:
+    name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          # Symfony 4.4.0 has a minimum requirement of PHP 7.1.3 but LdapRecord library
+          # has a minimum PHP requirement of 7.2.
+          - php-version: 7.2
+            composer-flags: "--prefer-lowest --prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.3
+            composer-flags: "--prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.0.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.1.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.2.*"
+          - php-version: 8.0
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.2.*"
+          - php-version: 8.1
+            composer-flags: "--ignore-platform-reqs"
+            symfony-require: "5.2.*"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP with PCOV"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          extensions: "json,ldap"
+          php-version: "${{ matrix.php-version }}"
+          ini-values: "zend.assertions=1"
+
+      - name: "Validate composer files"
+        run: "composer validate --strict"
+
+      - name: "Cache dependencies installed with composer"
+        uses: "actions/cache@v2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-"
+
+      - name: "Install dependencies with composer"
+        env:
+          SYMFONY_REQUIRE: "${{ matrix.symfony-require }}"
+        run: |
+          composer global require --no-progress --no-scripts --no-plugins symfony/flex
+          composer update --no-interaction --no-progress ${{ matrix.composer-flags }}
+
+      - name: "Run PHPUnit"
+        run: "vendor/bin/phpunit"

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset
+    name="PHPCS Coding Standards for doctrine/coding-standards"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>Check the code of the sniffs in doctrine/coding-standards.</description>
+
+    <arg name="basepath" value="."/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <!-- Ignore warnings, show progress of the run and show sniff names -->
+    <arg value="nps"/>
+
+    <file>DependencyInjection</file>
+    <file>Tests</file>
+
+    <!-- <rule ref="PSR12" /> -->
+    <rule ref="Doctrine">
+        <exclude name="Generic.Formatting.SpaceAfterNot"/>
+
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator.RequiredNullCoalesceEqualOperator"/> <!-- PHP 7.4 required-->
+        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/> <!-- PHP 7.4 required-->
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName"/>
+    </rule>
+
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>Tests</exclude-pattern>
+    </rule>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>Tests</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification">
+        <exclude-pattern>Tests</exclude-pattern>
+    </rule>
+
+    <!-- As per: https://symfony.com/doc/current/contributing/code/standards.html#structure -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
+</ruleset>
