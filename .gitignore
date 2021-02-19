@@ -7,3 +7,5 @@ composer.phar
 package.tar
 /packages.json
 /.phpunit
+/.psalm/
+/.idea/

@@ -1,0 +1,64 @@
+name: "Code Quality"
+
+on:
+  pull_request:
+    branches:
+      - "*.x"
+      - "master"
+      - "fix-*"
+      - "feature-*"
+  push:
+    branches:
+      - "*.x"
+      - "master"
+      - "fix-*"
+      - "feature-*"
+
+jobs:
+  static-analysis-phpstan:
+    name: "Static Analysis with PHPStan"
+    runs-on: "ubuntu-20.04"
+
+    strategy:
+      matrix:
+        include:
+          - php-version: 7.2
+            composer-flags: "--prefer-lowest --prefer-stable"
+          - php-version: 7.3
+            composer-flags: "--prefer-stable"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.0.*"
+            coverage: yes
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.1.*"
+          - php-version: 8.0
+            composer-flags: "--ignore-platform-reqs"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          tools: "cs2pr"
+
+      - name: "Cache dependencies installed with composer"
+        uses: "actions/cache@v2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-locked-${{ hashFiles('composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-locked-"
+
+      - name: "Install dependencies with composer"
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: "Run a static analysis with phpstan/phpstan"
+        run: "vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr"

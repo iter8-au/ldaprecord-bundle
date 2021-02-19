@@ -8,6 +8,12 @@
          failOnRisky="true"
          failOnWarning="true"
 >
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <env name="LDAP_HOST" value="localhost" />
+        <env name="LDAP_PORT" value="3389" />
+    </php>
+
     <testsuites>
         <testsuite name="Iter8LdapRecordBundle for the Symfony Framework">
             <directory>./Tests</directory>
@@ -16,7 +22,7 @@
 
     <filter>
         <whitelist>
-            <directory>.</directory>
+            <directory>./</directory>
             <exclude>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
