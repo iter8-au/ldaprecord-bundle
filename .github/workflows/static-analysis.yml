@@ -1,0 +1,36 @@
+# See continuous-integration.yml for sources.
+
+name: "Code Quality"
+
+on: [push, pull_request]
+
+jobs:
+  static-analysis-phpstan:
+    name: "Static Analysis on PHP ${{ matrix.php-version }}"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        php-version:
+          - 7.4
+          - 8.0
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          extensions: "json,ldap"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Install dependencies with Composer"
+        uses: "ramsey/composer-install@v1"
+
+      - name: "Run a static analysis with phpstan/phpstan"
+        run: "vendor/bin/phpstan analyse"
+
+      - name: "Run a static analysis with vimeo/psalm"
+        run: "vendor/bin/psalm --output-format=github"

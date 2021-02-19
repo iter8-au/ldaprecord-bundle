@@ -12,6 +12,7 @@
     ensureArrayStringOffsetsExist="true"
     ensureArrayIntOffsetsExist="true"
     cacheDirectory=".psalm"
+    errorLevel="2"
 >
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
@@ -21,8 +22,8 @@
     <projectFiles>
         <directory name="Resources" />
         <directory name="DependencyInjection" />
-        <directory name="Tests" />
         <ignoreFiles>
+            <directory name="Tests" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
@@ -39,6 +40,12 @@
                 <file name="DependencyInjection/Iter8LdapRecordExtension.php" />
             </errorLevel>
         </PossiblyUndefinedStringArrayOffset>
+
+        <MixedMethodCall>
+            <errorLevel type="suppress">
+                <file name="DependencyInjection/Configuration.php" />
+            </errorLevel>
+        </MixedMethodCall>
 
         <PropertyNotSetInConstructor errorLevel="suppress" />
 
