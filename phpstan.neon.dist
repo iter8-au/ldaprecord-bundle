@@ -1,0 +1,17 @@
+parameters:
+    level: 5
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - ./DependencyInjection
+        - ./Tests
+    ignoreErrors:
+        -
+            message: '#.*NodeDefinition::children.*#'
+            path: ./DependencyInjection
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Iter8\Bundle\LdapRecordBundle\Tests\DependencyInjection;
 
 use InvalidArgumentException;
@@ -9,10 +11,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class Iter8LdapRecordExtensionTest extends TestCase
 {
-    public function testCannotConfigureTlsAndSslForConnection()
+    public function test_cannot_configure_tls_and_ssl_for_connection(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Cannot configure AD/LDAP connection to use both TLS and SSL, please pick one.');
+        $this->expectExceptionMessage('Cannot configure LDAP connection to use both TLS and SSL, please pick one.');
 
         $extension = new Iter8LdapRecordExtension();
         $container = new ContainerBuilder();

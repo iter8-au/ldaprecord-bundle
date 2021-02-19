@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<psalm
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    strictBinaryOperands="true"
+    ignoreInternalFunctionFalseReturn="false"
+    ignoreInternalFunctionNullReturn="false"
+    findUnusedVariablesAndParams="true"
+    findUnusedCode="true"
+    findUnusedPsalmSuppress="true"
+    ensureArrayStringOffsetsExist="true"
+    ensureArrayIntOffsetsExist="true"
+    cacheDirectory=".psalm"
+>
+    <plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
+    </plugins>
+
+    <projectFiles>
+        <directory name="Resources" />
+        <directory name="DependencyInjection" />
+        <directory name="Tests" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <PossiblyUndefinedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
+            </errorLevel>
+        </PossiblyUndefinedMethod>
+
+        <PossiblyUndefinedStringArrayOffset>
+            <errorLevel type="suppress">
+                <file name="DependencyInjection/Iter8LdapRecordExtension.php" />
+            </errorLevel>
+        </PossiblyUndefinedStringArrayOffset>
+
+        <PropertyNotSetInConstructor errorLevel="suppress" />
+
+        <UnusedClass errorLevel="suppress" />
+
+        <UnusedConstructor errorLevel="suppress" />
+    </issueHandlers>
+</psalm>
