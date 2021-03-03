@@ -38,6 +38,5 @@
         "psr-4": {
             "": "Tests/DependencyInjection"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

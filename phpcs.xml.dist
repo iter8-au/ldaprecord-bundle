@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <ruleset
-    name="PHPCS Coding Standards for doctrine/coding-standards"
+    name="PHPCS Coding Standards for iter8/ldaprecord-bundle"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
 >
-    <description>Check the code of the sniffs in doctrine/coding-standards.</description>
+    <description>Check the code of the sniffs in iter8/ldaprecord-bundle.</description>
 
     <arg name="basepath" value="."/>
     <arg name="extensions" value="php"/>
@@ -24,6 +24,11 @@
         <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator.RequiredNullCoalesceEqualOperator"/> <!-- PHP 7.4 required-->
         <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/> <!-- PHP 7.4 required-->
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName"/>
+
+        <!-- As per: https://symfony.com/doc/current/contributing/code/standards.html#structure -->
+        <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceBefore"/>
+        <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceAfter"/>
+        <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
     </rule>
 
     <rule ref="Generic.Files.LineLength">
