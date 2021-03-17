@@ -5,12 +5,12 @@ parameters:
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     paths:
-        - ./DependencyInjection
-        - ./Tests
+        - %currentWorkingDirectory%/DependencyInjection
+        - %currentWorkingDirectory%/Tests
     ignoreErrors:
         -
             message: '#.*NodeDefinition::children.*#'
-            path: ./DependencyInjection
+            path: %currentWorkingDirectory%/DependencyInjection
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon

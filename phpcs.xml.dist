@@ -24,6 +24,7 @@
         <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator.RequiredNullCoalesceEqualOperator"/> <!-- PHP 7.4 required-->
         <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/> <!-- PHP 7.4 required-->
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName"/>
+        <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName"/>
 
         <!-- As per: https://symfony.com/doc/current/contributing/code/standards.html#structure -->
         <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceBefore"/>
@@ -36,6 +37,10 @@
     </rule>
 
     <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>Tests</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion">
         <exclude-pattern>Tests</exclude-pattern>
     </rule>
 

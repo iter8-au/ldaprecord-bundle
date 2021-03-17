@@ -5,7 +5,12 @@
 
 name: "Continuous Integration"
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  # Run the CI tasks weekly to catch any potential dependency regressions.
+  schedule:
+    - cron: '0 0 * * 1'
 
 jobs:
   phpunit:
@@ -43,11 +48,22 @@ jobs:
             composer-flags: "--ignore-platform-reqs"
             symfony-require: "5.2.*"
 
+    services:
+      ldap:
+        image: bitnami/openldap
+        ports:
+          - 3389:3389
+        env:
+          LDAP_ADMIN_USERNAME: admin
+          LDAP_ADMIN_PASSWORD: a_great_password
+          LDAP_ROOT: dc=local,dc=com
+          LDAP_PORT_NUMBER: 3389
+          LDAP_USERS: a
+          LDAP_PASSWORDS: a
+
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v2"
-        with:
-          fetch-depth: 2
 
       - name: "Install PHP with PCOV"
         uses: "shivammathur/setup-php@v2"
@@ -64,8 +80,10 @@ jobs:
         uses: "actions/cache@v2"
         with:
           path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}"
-          restore-keys: "php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-"
+          key: php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-
+            php-${{ matrix.php-version }}-
 
       - name: "Install dependencies with composer"
         env:
