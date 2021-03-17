@@ -3,6 +3,15 @@
     "type": "symfony-bundle",
     "description": "LdapRecord for Symfony bundle",
     "license": "MIT",
+    "keywords": [
+        "symfony",
+        "symfony-bundle",
+        "ldap"
+    ],
+    "support": {
+        "issues": "https://github.com/iter8-au/ldaprecord-bundle/issues",
+        "source": "https://github.com/iter8-au/ldaprecord-bundle"
+    },
     "require": {
         "php": "^7.2 || ^8.0",
         "directorytree/ldaprecord": "^2.0",
