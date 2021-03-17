@@ -36,6 +36,9 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+    "conflict": {
+        "tightenco/collect": "<5.6"
+    },
     "autoload": {
         "psr-4": {
             "Iter8\\Bundle\\LdapRecordBundle\\": ""
