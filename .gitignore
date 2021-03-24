@@ -10,3 +10,8 @@ package.tar
 /.psalm/
 /.idea/
 /.phpcs-cache
+/Tests/certs/*.crt
+/Tests/certs/*.csr
+/Tests/certs/*.key
+/Tests/certs/*.srl
+

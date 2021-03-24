@@ -31,13 +31,12 @@ class TestCase extends PHPUnitTestCase
 
     protected function getLdapsConfig(): array
     {
-        putenv("TLS_REQCERT=never");
-        putenv('LDAPTLS_CIPHER_SUITE=NORMAL:!VERS-TLS1.2');
+        putenv("TLS_REQCERT=allow");
 
         @ldap_set_option(null, \LDAP_OPT_DEBUG_LEVEL, 7);
 //        @ldap_set_option(null, \LDAP_OPT_X_TLS_CERTFILE, './certs/openldap.crt');
 //        @ldap_set_option(null, \LDAP_OPT_X_TLS_KEYFILE, './certs/openldap.key');
-        @ldap_set_option(null, \LDAP_OPT_X_TLS_REQUIRE_CERT, \LDAP_OPT_X_TLS_NEVER);
+        @ldap_set_option(null, \LDAP_OPT_X_TLS_REQUIRE_CERT, \LDAP_OPT_X_TLS_ALLOW);
         /** @var resource|null $h */
         $h = @ldap_connect((string) getenv('LDAP_HOST'), (int) getenv('LDAPS_PORT'));
         @ldap_set_option($h, \LDAP_OPT_PROTOCOL_VERSION, 3);
