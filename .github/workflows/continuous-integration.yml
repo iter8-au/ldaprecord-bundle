@@ -114,5 +114,5 @@ jobs:
 
       - name: "Run PHPUnit"
         run: "vendor/bin/phpunit"
-        env:
-          LDAP_HOST: "ldap"
+#        env:
+#          LDAP_HOST: "ldap"
