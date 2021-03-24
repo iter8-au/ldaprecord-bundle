@@ -103,6 +103,10 @@ jobs:
       # - https://github.com/docker/buildx/pull/535
       # - https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
 
+      - name: "Docker debug"
+        run: |
+          docker network ls
+
       - name: "Setup Docker"
         run: "docker-compose up -d"
         # Temporary while testing Docker compose for tests
