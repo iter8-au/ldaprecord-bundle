@@ -29,30 +29,39 @@ class Iter8LdapRecordExtensionTest extends TestCase
     {
         $this->expectException(InvalidConfigurationException::class);
 
-        $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
-        $container->loadFromExtension('iter8_ldap_record');
-        $container->compile();
+        $this->createContainerWithConfig([]);
     }
 
     public function test_load_valid_configuration(): void
     {
-        $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
-        $container->loadFromExtension('iter8_ldap_record', $this->baseConfig());
-        $container->compile();
+        $ldapConfig = $this->getLdapConfig();
+
+        $config = \array_merge(
+            $this->baseConfig(),
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+            ]
+        );
+
+        $container = $this->createContainerWithConfig($config);
 
         self::assertTrue($container->getDefinition('iter8_ldap_record.connection')->isPublic());
     }
 
     public function test_is_connected_with_auto_connect_disabled(): void
     {
-        $this->getLdapConfig();
+        $ldapConfig = $this->getLdapConfig();
 
-        $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
-        $container->loadFromExtension('iter8_ldap_record', $this->baseConfig());
-        $container->compile();
+        $config = \array_merge(
+            $this->baseConfig(),
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+            ]
+        );
+
+        $container = $this->createContainerWithConfig($config);
 
         /** @var Connection $connection */
         $connection = $container->get('iter8_ldap_record.connection');
@@ -62,17 +71,18 @@ class Iter8LdapRecordExtensionTest extends TestCase
 
     public function test_is_connected_with_auto_connect_enabled(): void
     {
-        $this->getLdapConfig();
+        $ldapConfig = $this->getLdapConfig();
 
-        $config = array_merge(
+        $config = \array_merge(
             $this->baseConfig(),
-            ['auto_connect' => true]
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+                'auto_connect' => true,
+            ]
         );
 
-        $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
-        $container->loadFromExtension('iter8_ldap_record', $config);
-        $container->compile();
+        $container = $this->createContainerWithConfig($config);
 
         /** @var Connection $connection */
         $connection = $container->get('iter8_ldap_record.connection');
@@ -80,15 +90,91 @@ class Iter8LdapRecordExtensionTest extends TestCase
         self::assertTrue($connection->isConnected());
     }
 
+    public function test_manual_connect_with_unsecured_connection(): void
+    {
+        $ldapConfig = $this->getLdapConfig();
+
+        $config = \array_merge(
+            $this->baseConfig(),
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+            ]
+        );
+
+        $container = $this->createContainerWithConfig($config);
+
+        /** @var Connection $connection */
+        $connection = $container->get('iter8_ldap_record.connection');
+
+        $connection->connect();
+
+        self::assertTrue($connection->isConnected());
+    }
+
+    public function test_manual_connect_with_tls_connection(): void
+    {
+        $ldapConfig = $this->getLdapsConfig();
+
+        $config = \array_merge(
+            $this->baseConfig(),
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+                'use_tls' => true,
+            ]
+        );
+
+        $container = $this->createContainerWithConfig($config);
+
+        /** @var Connection $connection */
+        $connection = $container->get('iter8_ldap_record.connection');
+
+        $connection->connect();
+
+        self::assertTrue($connection->isConnected());
+    }
+
+    public function test_can_find_user(): void
+    {
+        $ldapConfig = $this->getLdapConfig();
+
+        $config = \array_merge(
+            $this->baseConfig(),
+            [
+                'hosts' => [$ldapConfig['host']],
+                'port' => $ldapConfig['port'],
+            ]
+        );
+
+        $container = $this->createContainerWithConfig($config);
+
+        /** @var Connection $connection */
+        $connection = $container->get('iter8_ldap_record.connection');
+
+        $results = $connection->query()->where('cn', '=', 'a')->get();
+
+        dump($results);
+        self::assertNotEmpty($results);
+    }
+
     private function baseConfig(): array
     {
         return [
-            'hosts' => ['localhost'],
             'base_dn' => 'dc=local,dc=com',
             'username' => 'cn=admin,dc=local,dc=com',
             'password' => 'a_great_password',
-            'port' => 3389,
         ];
+    }
+
+    private function createContainerWithConfig(array $config): ContainerBuilder
+    {
+        $container = $this->createContainer();
+        $container->registerExtension(new Iter8LdapRecordExtension());
+        $container->loadFromExtension('iter8_ldap_record', $config);
+        $container->compile();
+
+        return $container;
     }
 
     private function createContainer(): ContainerBuilder

@@ -65,6 +65,7 @@
         "phpstan": "phpstan analyze",
         "phpstan-max": "@phpstan --level=max",
         "phpunit": "phpunit",
-        "psalm": "psalm --show-info=true"
+        "psalm": "psalm --show-info=true",
+        "generate-certs": "./Tests/certs/generate.sh"
     }
 }

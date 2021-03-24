@@ -48,18 +48,19 @@ jobs:
             composer-flags: "--ignore-platform-reqs"
             symfony-require: "5.2.*"
 
-    services:
-      ldap:
-        image: bitnami/openldap
-        ports:
-          - 3389:3389
-        env:
-          LDAP_ADMIN_USERNAME: admin
-          LDAP_ADMIN_PASSWORD: a_great_password
-          LDAP_ROOT: dc=local,dc=com
-          LDAP_PORT_NUMBER: 3389
-          LDAP_USERS: a
-          LDAP_PASSWORDS: a
+#    services:
+#      ldap:
+#        image: bitnami/openldap:latest
+#        ports:
+#          - 1389:1389
+#          - 1636:1636
+#        env:
+#          LDAP_ADMIN_USERNAME: admin
+#          LDAP_ADMIN_PASSWORD: a_great_password
+#          LDAP_ROOT: dc=local,dc=com
+#          LDAP_PORT_NUMBER: 1636
+#          LDAP_USERS: a
+#          LDAP_PASSWORDS: a
 
     steps:
       - name: "Checkout"
@@ -91,6 +92,13 @@ jobs:
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           composer update --no-interaction --no-progress ${{ matrix.composer-flags }}
+
+      - name: "Generate certificates"
+        run: |
+          composer generate-certs
+
+      - name: "Setup Docker"
+        run: "docker-compose run --rm ldap"
 
       - name: "Run PHPUnit"
         run: "vendor/bin/phpunit"
