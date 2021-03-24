@@ -16,6 +16,8 @@ jobs:
   phpunit:
     name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
     runs-on: "ubuntu-latest"
+    # Temporary while testing Docker compose for tests
+    timeout-minutes: 10
 
     strategy:
       fail-fast: true
@@ -97,8 +99,14 @@ jobs:
         run: |
           composer generate-certs
 
+      # TODO: Cache Docker layers
+      # - https://github.com/docker/buildx/pull/535
+      # - https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
+
       - name: "Setup Docker"
-        run: "docker-compose run --rm ldap"
+        run: "docker-compose up -d"
+        # Temporary while testing Docker compose for tests
+        timeout-minutes: 5
 
       - name: "Run PHPUnit"
         run: "vendor/bin/phpunit"
