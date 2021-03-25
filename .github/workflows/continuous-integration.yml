@@ -14,12 +14,15 @@ on:
 
 jobs:
   # configure Docker here with manual running of generate.sh
-#  certs:
-#    name: "Generate certificates"
-#    runs-on: "ubuntu-latest"
+  certs:
+    name: "Generate certificates"
+    runs-on: "ubuntu-latest"
 #    timeout-minutes: 10
 #
-#    steps:
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
 #      - name: "Generate certificates"
 #        run: |
 #          openssl genrsa -out openldapCA.key 4096
@@ -31,7 +34,7 @@ jobs:
   phpunit:
     name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
     runs-on: "ubuntu-latest"
-#    needs: certs
+    needs: certs
 
     strategy:
       fail-fast: true
@@ -42,27 +45,28 @@ jobs:
           - php-version: 7.2
             composer-flags: "--prefer-lowest --prefer-stable"
             symfony-require: "4.4.*"
-          - php-version: 7.3
-            composer-flags: "--prefer-stable"
-            symfony-require: "4.4.*"
-          - php-version: 7.4
-            composer-flags: "--prefer-stable"
-            symfony-require: "4.4.*"
-          - php-version: 7.4
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.0.*"
-          - php-version: 7.4
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.1.*"
-          - php-version: 7.4
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.2.*"
-          - php-version: 8.0
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.2.*"
-          - php-version: 8.1
-            composer-flags: "--ignore-platform-reqs"
-            symfony-require: "5.2.*"
+          # Temp comment out during Docker testing
+#          - php-version: 7.3
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "4.4.*"
+#          - php-version: 7.4
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "4.4.*"
+#          - php-version: 7.4
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "5.0.*"
+#          - php-version: 7.4
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "5.1.*"
+#          - php-version: 7.4
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "5.2.*"
+#          - php-version: 8.0
+#            composer-flags: "--prefer-stable"
+#            symfony-require: "5.2.*"
+#          - php-version: 8.1
+#            composer-flags: "--ignore-platform-reqs"
+#            symfony-require: "5.2.*"
 
     services:
       ldap:
@@ -84,11 +88,11 @@ jobs:
           LDAP_TLS_KEY_FILE: /opt/bitnami/openldap/certs/openldap.key
           LDAP_TLS_CA_FILE: /opt/bitnami/openldap/certs/openldapCA.crt
         volumes:
-          - ./Tests/certs:/opt/bitnami/openldap/certs
+          - Tests/certs:/opt/bitnami/openldap/certs
 
     steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2"
+#      - name: "Checkout"
+#        uses: "actions/checkout@v2"
 
       - name: "Install PHP with PCOV"
         uses: "shivammathur/setup-php@v2"
