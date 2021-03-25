@@ -88,7 +88,7 @@ jobs:
           LDAP_TLS_KEY_FILE: /opt/bitnami/openldap/certs/openldap.key
           LDAP_TLS_CA_FILE: /opt/bitnami/openldap/certs/openldapCA.crt
         volumes:
-          - Tests/certs:/opt/bitnami/openldap/certs
+          - ${{ GITHUB_WORKSPACE }}/Tests/certs:/opt/bitnami/openldap/certs
 
     steps:
 #      - name: "Checkout"
