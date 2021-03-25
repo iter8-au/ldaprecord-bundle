@@ -101,19 +101,6 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
-      - name: "Debug"
-        run: |
-          pwd
-          ls -la
-          ls -la Tests
-          ls -la Tests/certs
-
-#      - name: "Checkout"
-#        uses: "actions/checkout@v2"
-
-      - name: "Restart Docker"
-        run: "docker restart ldaprecord"
-
       - name: "Install PHP with PCOV"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -121,6 +108,13 @@ jobs:
           extensions: "json,ldap"
           php-version: "${{ matrix.php-version }}"
           ini-values: "zend.assertions=1"
+
+      - name: "Generate certificates"
+        run: |
+          composer generate-certs
+
+      - name: "Restart Docker"
+        run: "docker restart ldaprecord"
 
       - name: "Validate composer files"
         run: "composer validate --strict"
@@ -131,8 +125,12 @@ jobs:
           path: "~/.composer/cache"
           key: php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}
           restore-keys: |
+            php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}
             php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-
+            php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}
+            php-${{ matrix.php-version }}-symfony-
             php-${{ matrix.php-version }}-
+            php-
 
       - name: "Install dependencies with composer"
         env:
@@ -140,10 +138,6 @@ jobs:
         run: |
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           composer update --no-interaction --no-progress ${{ matrix.composer-flags }}
-
-      - name: "Generate certificates"
-        run: |
-          composer generate-certs
 
       # TODO: Cache Docker layers
       # - https://github.com/docker/buildx/pull/535
