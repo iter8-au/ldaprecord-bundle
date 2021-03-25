@@ -92,7 +92,9 @@ jobs:
 
     steps:
       - name: "Test"
-        run: sudo chown -R $USER:$USER ${{ github.workspace }}
+        run: |
+          sudo chown -R $USER:$USER ${{ github.workspace }}
+          docker container ls
 
       - name: "Checkout"
         uses: "actions/checkout@v2"
