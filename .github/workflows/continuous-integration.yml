@@ -13,28 +13,9 @@ on:
     - cron: '0 0 * * 1'
 
 jobs:
-  # configure Docker here with manual running of generate.sh
-#  certs:
-#    name: "Generate certificates"
-#    runs-on: "ubuntu-latest"
-##    timeout-minutes: 10
-##
-#    steps:
-#      - name: "Checkout"
-#        uses: "actions/checkout@v2"
-
-#      - name: "Generate certificates"
-#        run: |
-#          openssl genrsa -out openldapCA.key 4096
-#          openssl req -x509 -new -nodes -key openldapCA.key -sha256 -days 3650 -subj "/CN=localhostCA" -out openldapCA.crt
-#          openssl genrsa -out openldap.key 2048
-#          openssl req -new -sha256 -key openldap.key -subj "/CN=localhost" -out openldap.csr
-#          openssl x509 -req -in openldap.csr -CA openldapCA.crt -CAkey openldapCA.key -CAcreateserial -out openldap.crt -sha256 -days 3650
-
   phpunit:
     name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
     runs-on: "ubuntu-latest"
-#    needs: certs
 
     strategy:
       fail-fast: true
@@ -78,7 +59,7 @@ jobs:
           LDAP_ADMIN_USERNAME: admin
           LDAP_ADMIN_PASSWORD: a_great_password
           LDAP_ROOT: dc=local,dc=com
-          LDAP_PORT_NUMBER: 1636
+          LDAP_PORT_NUMBER: 1389
           LDAP_USERS: a
           LDAP_PASSWORDS: a
           LDAP_ENABLE_TLS: yes
@@ -139,20 +120,5 @@ jobs:
           composer global require --no-progress --no-scripts --no-plugins symfony/flex
           composer update --no-interaction --no-progress ${{ matrix.composer-flags }}
 
-      # TODO: Cache Docker layers
-      # - https://github.com/docker/buildx/pull/535
-      # - https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
-
-#      - name: "Docker debug"
-#        run: |
-#          docker network ls
-#
-#      - name: "Setup Docker"
-#        run: "docker-compose up -d"
-#        # Temporary while testing Docker compose for tests
-#        timeout-minutes: 5
-
       - name: "Run PHPUnit"
         run: "vendor/bin/phpunit"
-#        env:
-#          LDAP_HOST: "ldap"
