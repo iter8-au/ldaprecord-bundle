@@ -112,7 +112,7 @@ jobs:
 #        uses: "actions/checkout@v2"
 
       - name: "Restart Docker"
-        run: "docker-compose restart"
+        run: "docker restart ldaprecord"
 
       - name: "Install PHP with PCOV"
         uses: "shivammathur/setup-php@v2"
