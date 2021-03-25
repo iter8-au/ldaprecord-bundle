@@ -96,6 +96,7 @@ jobs:
         run: |
           sudo chown -R $USER:$USER ${{ github.workspace }}
           docker container ls
+          docker ps
 
       - name: "Checkout"
         uses: "actions/checkout@v2"
