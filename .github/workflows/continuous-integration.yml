@@ -91,6 +91,9 @@ jobs:
           - ${{ github.workspace }}/Tests/certs:/opt/bitnami/openldap/certs
 
     steps:
+      - name: "Test"
+        run: sudo chown -R $USER:$USER ${{ github.workspace }}
+
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
