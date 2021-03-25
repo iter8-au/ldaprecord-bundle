@@ -97,6 +97,8 @@ jobs:
         run: |
           pwd
           ls -la
+          ls -la Tests
+          ls -la Tests/certs
 
       - name: "Install PHP with PCOV"
         uses: "shivammathur/setup-php@v2"
