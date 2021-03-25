@@ -89,7 +89,7 @@ jobs:
           LDAP_TLS_CA_FILE: /opt/bitnami/openldap/certs/openldapCA.crt
         volumes:
           - ${{ github.workspace }}/Tests/certs:/opt/bitnami/openldap/certs
-        options: --name ldaprecord
+        options: --name=ldaprecord
 
     steps:
       - name: "Test"
