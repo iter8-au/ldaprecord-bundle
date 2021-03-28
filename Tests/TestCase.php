@@ -31,22 +31,22 @@ class TestCase extends PHPUnitTestCase
 
     protected function getLdapsConfig(): array
     {
-        putenv("TLS_REQCERT=allow");
+        putenv('TLS_REQCERT=allow');
 
-        @ldap_set_option(null, \LDAP_OPT_DEBUG_LEVEL, 7);
-//        @ldap_set_option(null, \LDAP_OPT_X_TLS_CERTFILE, './certs/openldap.crt');
-//        @ldap_set_option(null, \LDAP_OPT_X_TLS_KEYFILE, './certs/openldap.key');
+//        @ldap_set_option(null, \LDAP_OPT_DEBUG_LEVEL, 7);
         @ldap_set_option(null, \LDAP_OPT_X_TLS_REQUIRE_CERT, \LDAP_OPT_X_TLS_ALLOW);
         /** @var resource|null $h */
         $h = @ldap_connect((string) getenv('LDAP_HOST'), (int) getenv('LDAPS_PORT'));
         @ldap_set_option($h, \LDAP_OPT_PROTOCOL_VERSION, 3);
         @ldap_set_option($h, \LDAP_OPT_REFERRALS, 0);
-        @ldap_get_option($h, LDAP_OPT_DIAGNOSTIC_MESSAGE, $extended_error);
-        @ldap_start_tls($h);
+        if (\is_resource($h)) {
+            @ldap_get_option($h, \LDAP_OPT_DIAGNOSTIC_MESSAGE, $extendedError);
+            @ldap_start_tls($h);
+        }
 
         if (!\is_resource($h) || !@ldap_bind($h)) {
-            dump(@ldap_error($h));
-            dump($extended_error);
+//            dump(@ldap_error($h));
+//            dump($extendedError);
             self::markTestSkipped(\sprintf(
                 'No server is listening on LDAP_HOST:LDAPS_PORT (%s:%s)',
                 getenv('LDAP_HOST'),
