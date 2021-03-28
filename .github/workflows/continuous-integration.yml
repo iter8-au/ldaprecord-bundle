@@ -50,18 +50,33 @@ jobs:
 
     services:
       ldap:
-        image: bitnami/openldap
+        image: bitnami/openldap:latest
         ports:
-          - 3389:3389
+          - 1389:1389
+          - 1636:1636
         env:
           LDAP_ADMIN_USERNAME: admin
           LDAP_ADMIN_PASSWORD: a_great_password
           LDAP_ROOT: dc=local,dc=com
-          LDAP_PORT_NUMBER: 3389
+          LDAP_PORT_NUMBER: 1389
           LDAP_USERS: a
           LDAP_PASSWORDS: a
+          LDAP_ENABLE_TLS: yes
+          LDAP_LDAPS_PORT_NUMBER: 1636
+          LDAP_TLS_VERIFY_CLIENT: try
+          LDAP_TLS_CERT_FILE: /opt/bitnami/openldap/certs/openldap.crt
+          LDAP_TLS_KEY_FILE: /opt/bitnami/openldap/certs/openldap.key
+          LDAP_TLS_CA_FILE: /opt/bitnami/openldap/certs/openldapCA.crt
+        volumes:
+          - ${{ github.workspace }}/Tests/certs:/opt/bitnami/openldap/certs
+        options: --name=ldaprecord
 
     steps:
+      # Required as ./Tests/certs is created during ldap service build.
+      - name: "Make current user owner of workspace"
+        run: |
+          sudo chown -R $USER:$USER ${{ github.workspace }}
+
       - name: "Checkout"
         uses: "actions/checkout@v2"
 
@@ -73,8 +88,17 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-values: "zend.assertions=1"
 
+      - name: "Generate certificates"
+        run: |
+          composer generate-certs
+
+      - name: "Restart Docker"
+        run: |
+          docker restart ldaprecord
+
       - name: "Validate composer files"
-        run: "composer validate --strict"
+        run: |
+          composer validate --strict
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v2"
@@ -82,8 +106,12 @@ jobs:
           path: "~/.composer/cache"
           key: php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}
           restore-keys: |
+            php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-${{ hashFiles('composer.lock') }}
             php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}-composer-locked-
+            php-${{ matrix.php-version }}-symfony-${{ matrix.symfony-require }}
+            php-${{ matrix.php-version }}-symfony-
             php-${{ matrix.php-version }}-
+            php-
 
       - name: "Install dependencies with composer"
         env:
@@ -93,4 +121,5 @@ jobs:
           composer update --no-interaction --no-progress ${{ matrix.composer-flags }}
 
       - name: "Run PHPUnit"
-        run: "vendor/bin/phpunit"
+        run: |
+          composer phpunit

@@ -11,7 +11,8 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <env name="LDAP_HOST" value="localhost" />
-        <env name="LDAP_PORT" value="3389" />
+        <env name="LDAP_PORT" value="1389" />
+        <env name="LDAPS_PORT" value="1636" />
     </php>
 
     <testsuites>

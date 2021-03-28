@@ -6,6 +6,9 @@ namespace Iter8\Bundle\LdapRecordBundle\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
+/**
+ * @see https://github.com/symfony/symfony/blob/89fedfa/src/Symfony/Component/Ldap/Tests/LdapTestCase.php
+ */
 class TestCase extends PHPUnitTestCase
 {
     protected function getLdapConfig(): array
@@ -22,7 +25,40 @@ class TestCase extends PHPUnitTestCase
 
         return [
             'host' => getenv('LDAP_HOST'),
-            'port' => getenv('LDAP_PORT'),
+            'port' => (int) getenv('LDAP_PORT'),
+        ];
+    }
+
+    protected function getLdapsConfig(): array
+    {
+        putenv('TLS_REQCERT=allow');
+
+//        @ldap_set_option(null, \LDAP_OPT_DEBUG_LEVEL, 7);
+        @ldap_set_option(null, \LDAP_OPT_X_TLS_REQUIRE_CERT, \LDAP_OPT_X_TLS_ALLOW);
+        /** @var resource|null $h */
+        $h = @ldap_connect((string) getenv('LDAP_HOST'), (int) getenv('LDAPS_PORT'));
+        @ldap_set_option($h, \LDAP_OPT_PROTOCOL_VERSION, 3);
+        @ldap_set_option($h, \LDAP_OPT_REFERRALS, 0);
+        if (\is_resource($h)) {
+            @ldap_get_option($h, \LDAP_OPT_DIAGNOSTIC_MESSAGE, $extendedError);
+            @ldap_start_tls($h);
+        }
+
+        if (!\is_resource($h) || !@ldap_bind($h)) {
+//            dump(@ldap_error($h));
+//            dump($extendedError);
+            self::markTestSkipped(\sprintf(
+                'No server is listening on LDAP_HOST:LDAPS_PORT (%s:%s)',
+                getenv('LDAP_HOST'),
+                getenv('LDAPS_PORT')
+            ));
+        }
+
+        ldap_unbind($h);
+
+        return [
+            'host' => getenv('LDAP_HOST'),
+            'port' => (int) getenv('LDAPS_PORT'),
         ];
     }
 }
