@@ -26,28 +26,27 @@ jobs:
           - php-version: 7.2
             composer-flags: "--prefer-lowest --prefer-stable"
             symfony-require: "4.4.*"
-          # Temp comment out during Docker testing
-#          - php-version: 7.3
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "4.4.*"
-#          - php-version: 7.4
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "4.4.*"
-#          - php-version: 7.4
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "5.0.*"
-#          - php-version: 7.4
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "5.1.*"
-#          - php-version: 7.4
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "5.2.*"
-#          - php-version: 8.0
-#            composer-flags: "--prefer-stable"
-#            symfony-require: "5.2.*"
-#          - php-version: 8.1
-#            composer-flags: "--ignore-platform-reqs"
-#            symfony-require: "5.2.*"
+          - php-version: 7.3
+            composer-flags: "--prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "4.4.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.0.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.1.*"
+          - php-version: 7.4
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.2.*"
+          - php-version: 8.0
+            composer-flags: "--prefer-stable"
+            symfony-require: "5.2.*"
+          - php-version: 8.1
+            composer-flags: "--ignore-platform-reqs"
+            symfony-require: "5.2.*"
 
     services:
       ldap:
@@ -73,6 +72,7 @@ jobs:
         options: --name=ldaprecord
 
     steps:
+      # Required as ./Tests/certs is created during ldap service build.
       - name: "Make current user owner of workspace"
         run: |
           sudo chown -R $USER:$USER ${{ github.workspace }}
