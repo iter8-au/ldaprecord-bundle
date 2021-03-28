@@ -73,9 +73,9 @@ jobs:
         options: --name=ldaprecord
 
     steps:
-#      - name: "Test"
-#        run: |
-#          sudo chown -R $USER:$USER ${{ github.workspace }}
+      - name: "Make current user owner of workspace"
+        run: |
+          sudo chown -R $USER:$USER ${{ github.workspace }}
 
       - name: "Checkout"
         uses: "actions/checkout@v2"
