@@ -15,6 +15,11 @@ final class Configuration implements ConfigurationInterface
 
         $rootNode = $treeBuilder->getRootNode();
 
+        /**
+         * @psalm-suppress PossiblyNullReference
+         * @psalm-suppress PossiblyUndefinedMethod
+         * @psalm-suppress ReservedWord
+         */
         $rootNode
             ->children()
                 ->arrayNode('hosts')

@@ -48,6 +48,10 @@
         <exclude-pattern>Tests</exclude-pattern>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion">
+        <exclude-pattern>DependencyInjection/Iter8LdapRecordExtension\.php</exclude-pattern>
+    </rule>
+
     <!-- As per: https://symfony.com/doc/current/contributing/code/standards.html#structure -->
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireYodaComparison"/>
 </ruleset>
