@@ -1,8 +1,8 @@
 {
     "name": "iter8/ldaprecord-bundle",
-    "type": "symfony-bundle",
     "description": "LdapRecord for Symfony bundle",
     "license": "MIT",
+    "type": "symfony-bundle",
     "keywords": [
         "symfony",
         "symfony-bundle",
@@ -26,15 +26,12 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpstan/phpstan-strict-rules": "^1.0",
+        "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^9.0",
         "psalm/plugin-phpunit": "^0.16",
         "psalm/plugin-symfony": "^3.0",
         "squizlabs/php_codesniffer": "^3.5",
         "vimeo/psalm": "^4.0"
-    },
-    "config": {
-        "preferred-install": "dist",
-        "sort-packages": true
     },
     "conflict": {
         "tightenco/collect": "<5.6"
@@ -52,6 +49,10 @@
             "": "Tests/DependencyInjection"
         }
     },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
     "scripts": {
         "ci": [
             "@phpcs",
@@ -63,9 +64,10 @@
         "csf-dry": "@csf --dry-run",
         "phpcs": "phpcs",
         "phpstan": "phpstan analyze",
+        "phpstan-dev": "@phpstan --debug",
         "phpstan-max": "@phpstan --level=max",
         "phpunit": "phpunit",
-        "psalm": "psalm --show-info=true",
-        "psalm-dev": "@psalm --find-unused-psalm-suppress"
+        "psalm": "psalm",
+        "psalm-dev": "@psalm --show-info=true --find-unused-psalm-suppress --no-cache --stats"
     }
 }

@@ -12,7 +12,7 @@
     ensureArrayStringOffsetsExist="true"
     ensureArrayIntOffsetsExist="true"
     cacheDirectory=".psalm"
-    errorLevel="2"
+    errorLevel="1"
 >
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />
