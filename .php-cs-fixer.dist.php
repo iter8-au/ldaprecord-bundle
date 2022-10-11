@@ -1,6 +1,13 @@
 <?php
 
-return PhpCsFixer\Config::create()
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__)
+    ->append([__FILE__]);
+
+// @See https://github.com/FriendsOfPHP/PHP-CS-Fixer
+$config = new PhpCsFixer\Config();
+
+return $config
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
@@ -15,9 +22,4 @@ return PhpCsFixer\Config::create()
         'php_unit_method_casing' => ['case' => 'snake_case'],
     ])
     ->setRiskyAllowed(true)
-    ->setFinder(
-        PhpCsFixer\Finder::create()
-            ->in(__DIR__)
-            ->append([__FILE__])
-    )
-;
+    ->setFinder($finder);

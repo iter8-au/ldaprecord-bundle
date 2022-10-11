@@ -80,6 +80,9 @@ class Iter8LdapRecordExtensionTest extends TestCase
         self::assertTrue($connection->isConnected());
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function baseConfig(): array
     {
         return [

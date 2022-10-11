@@ -7,11 +7,12 @@ parameters:
     paths:
         - %currentWorkingDirectory%/DependencyInjection
         - %currentWorkingDirectory%/Tests
+        - %currentWorkingDirectory%/Iter8LdapRecordBundle.php
     ignoreErrors:
-        -
-            message: '#.*NodeDefinition::children.*#'
-            path: %currentWorkingDirectory%/DependencyInjection
+        - '#expects LDAP\\Connection#'
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon

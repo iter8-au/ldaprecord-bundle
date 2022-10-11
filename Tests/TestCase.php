@@ -14,7 +14,7 @@ class TestCase extends PHPUnitTestCase
         $h = @ldap_connect((string) getenv('LDAP_HOST'), (int) getenv('LDAP_PORT'));
         @ldap_set_option($h, \LDAP_OPT_PROTOCOL_VERSION, 3);
 
-        if (!\is_resource($h) || !@ldap_bind($h)) {
+        if (null === $h || !@ldap_bind($h)) {
             self::markTestSkipped('No server is listening on LDAP_HOST:LDAP_PORT');
         }
 
