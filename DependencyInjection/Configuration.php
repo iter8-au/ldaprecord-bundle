@@ -12,6 +12,7 @@ final class Configuration implements ConfigurationInterface
 {
     /**
      * @psalm-return TreeBuilder<'array'>
+     *
      * @phpstan-return TreeBuilder
      */
     public function getConfigTreeBuilder(): TreeBuilder
@@ -38,7 +39,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addHostsSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -54,7 +55,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addBaseDnSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -71,7 +72,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addUsernameSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -88,7 +89,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addPasswordSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -104,7 +105,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addPortSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -122,7 +123,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addUseSslSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -138,7 +139,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addUseTlsSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -154,7 +155,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addVersionSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -171,7 +172,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addTimeoutSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -188,7 +189,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addFollowReferralsSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -204,7 +205,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addAutoConnectSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord
@@ -220,7 +221,7 @@ final class Configuration implements ConfigurationInterface
 
     private function addOptionsSection(ArrayNodeDefinition $rootNode): void
     {
-        /**
+        /*
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          * @psalm-suppress ReservedWord

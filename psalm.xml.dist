@@ -8,7 +8,7 @@
     ignoreInternalFunctionNullReturn="false"
     findUnusedVariablesAndParams="true"
     findUnusedCode="true"
-    findUnusedPsalmSuppress="false"
+    findUnusedPsalmSuppress="true"
     ensureArrayStringOffsetsExist="true"
     ensureArrayIntOffsetsExist="true"
     cacheDirectory=".psalm"

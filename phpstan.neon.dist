@@ -9,6 +9,7 @@ parameters:
         - %currentWorkingDirectory%/Tests
         - %currentWorkingDirectory%/Iter8LdapRecordBundle.php
     ignoreErrors:
+        - '#expects LDAP\\Connection#'
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon

@@ -22,7 +22,7 @@ final class Iter8LdapRecordExtension extends ConfigurableExtension
         ContainerBuilder $container
     ): void {
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        /** @psalm-suppress ReservedWord */
+        /* @psalm-suppress ReservedWord */
         $loader->load('services.xml');
 
         if ($mergedConfig['use_ssl'] && $mergedConfig['use_tls']) {
@@ -31,6 +31,7 @@ final class Iter8LdapRecordExtension extends ConfigurableExtension
 
         /**
          * @var bool $shouldAutoConnect
+         *
          * @phpcsSuppress SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion
          */
         $shouldAutoConnect = $mergedConfig['auto_connect'];

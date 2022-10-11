@@ -25,6 +25,11 @@
         <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/> <!-- PHP 7.4 required-->
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFallbackGlobalName"/>
         <exclude name="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly.ReferenceViaFullyQualifiedName"/>
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment"/>
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison.DisallowedYodaComparison"/>
+        <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing.IncorrectAnnotationsGroup"/>
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration.MissingTrailingComma"/>
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
 
         <!-- As per: https://symfony.com/doc/current/contributing/code/standards.html#structure -->
         <exclude name="PSR12.Operators.OperatorSpacing.NoSpaceBefore"/>
