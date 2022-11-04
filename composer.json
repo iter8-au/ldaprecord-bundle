@@ -16,7 +16,7 @@
         "php": "^7.3 || ^8.0",
         "ext-ldap": "*",
         "directorytree/ldaprecord": "^2.5",
-        "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0"
+        "symfony/framework-bundle": "^5.4 || ^6.0"
     },
     "require-dev": {
         "doctrine/coding-standard": "^10.0",
@@ -28,8 +28,8 @@
         "phpstan/phpstan-strict-rules": "^1.0",
         "phpstan/phpstan-symfony": "^1.0",
         "phpunit/phpunit": "^9.0",
-        "psalm/plugin-phpunit": "^0.17",
-        "psalm/plugin-symfony": "^3.0",
+        "psalm/plugin-phpunit": "^0.18",
+        "psalm/plugin-symfony": "^4.0",
         "squizlabs/php_codesniffer": "^3.5",
         "vimeo/psalm": "^4.0"
     },

@@ -14,9 +14,6 @@ final class Iter8LdapRecordExtension extends ConfigurableExtension
 {
     public const EXCEPTION_TLS_AND_SSL = 'Cannot configure LDAP connection to use both TLS and SSL, please pick one.';
 
-    /**
-     * {@inheritDoc}
-     */
     protected function loadInternal(
         array $mergedConfig,
         ContainerBuilder $container
@@ -29,11 +26,6 @@ final class Iter8LdapRecordExtension extends ConfigurableExtension
             throw new InvalidArgumentException(self::EXCEPTION_TLS_AND_SSL);
         }
 
-        /**
-         * @var bool $shouldAutoConnect
-         *
-         * @phpcsSuppress SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion
-         */
         $shouldAutoConnect = $mergedConfig['auto_connect'];
         unset($mergedConfig['auto_connect']);
 
