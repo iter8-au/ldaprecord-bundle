@@ -15,7 +15,7 @@ on:
 jobs:
   phpunit:
     name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-20.04"
 
     strategy:
       fail-fast: true
