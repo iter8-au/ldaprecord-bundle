@@ -52,7 +52,8 @@
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
-            "ergebnis/composer-normalize": true
+            "ergebnis/composer-normalize": true,
+            "symfony/flex": true
         },
         "preferred-install": "dist",
         "sort-packages": true

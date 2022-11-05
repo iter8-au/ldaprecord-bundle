@@ -14,6 +14,9 @@ final class Iter8LdapRecordExtension extends ConfigurableExtension
 {
     public const EXCEPTION_TLS_AND_SSL = 'Cannot configure LDAP connection to use both TLS and SSL, please pick one.';
 
+    /**
+     * {@inheritDoc}
+     */
     protected function loadInternal(
         array $mergedConfig,
         ContainerBuilder $container
