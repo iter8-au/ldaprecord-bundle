@@ -2,43 +2,59 @@
 
 declare(strict_types=1);
 
-namespace Iter8\Bundle\LdapRecordBundle\Tests\DependencyInjection;
+namespace Iter8\LdapRecordBundle\Tests;
 
-use InvalidArgumentException;
-use Iter8\Bundle\LdapRecordBundle\DependencyInjection\Iter8LdapRecordExtension;
-use Iter8\Bundle\LdapRecordBundle\Tests\TestCase;
+use Iter8\LdapRecordBundle\Iter8LdapRecordBundle;
 use LdapRecord\Connection;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
-class Iter8LdapRecordExtensionTest extends TestCase
+final class Iter8LdapRecordBundleTest extends TestCase
 {
+    public function test_get_container_extension(): void
+    {
+        $bundle = new Iter8LdapRecordBundle();
+
+        self::assertInstanceOf(
+            'Symfony\Component\HttpKernel\Bundle\BundleExtension',
+            $bundle->getContainerExtension(),
+        );
+        self::assertSame('Iter8\LdapRecordBundle', $bundle->getNamespace());
+        self::assertSame('Iter8LdapRecordBundle', $bundle->getName());
+    }
+
     public function test_cannot_configure_tls_and_ssl_for_connection(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Cannot configure LDAP connection to use both TLS and SSL, please pick one.');
 
-        $extension = new Iter8LdapRecordExtension();
-        $container = new ContainerBuilder();
+        $bundle = new Iter8LdapRecordBundle();
 
-        $extension->load([array_merge($this->baseConfig(), ['use_ssl' => true, 'use_tls' => true])], $container);
+        $container = $this->createContainer();
+        $container->registerExtension($bundle->getContainerExtension());
+        $container->loadFromExtension('iter8_ldap_record', array_merge($this->baseConfig(), ['use_ssl' => true, 'use_tls' => true]));
+        $container->compile();
     }
 
     public function test_load_empty_configuration(): void
     {
         $this->expectException(InvalidConfigurationException::class);
 
+        $bundle = new Iter8LdapRecordBundle();
+
         $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
-        $container->loadFromExtension('iter8_ldap_record');
+        $container->registerExtension($bundle->getContainerExtension());
+        $container->loadFromExtension('iter8_ldap_record', []);
         $container->compile();
     }
 
     public function test_load_valid_configuration(): void
     {
+        $bundle = new Iter8LdapRecordBundle();
+
         $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
+        $container->registerExtension($bundle->getContainerExtension());
         $container->loadFromExtension('iter8_ldap_record', $this->baseConfig());
         $container->compile();
 
@@ -49,8 +65,10 @@ class Iter8LdapRecordExtensionTest extends TestCase
     {
         $this->getLdapConfig();
 
+        $bundle = new Iter8LdapRecordBundle();
+
         $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
+        $container->registerExtension($bundle->getContainerExtension());
         $container->loadFromExtension('iter8_ldap_record', $this->baseConfig());
         $container->compile();
 
@@ -69,8 +87,10 @@ class Iter8LdapRecordExtensionTest extends TestCase
             ['auto_connect' => true]
         );
 
+        $bundle = new Iter8LdapRecordBundle();
+
         $container = $this->createContainer();
-        $container->registerExtension(new Iter8LdapRecordExtension());
+        $container->registerExtension($bundle->getContainerExtension());
         $container->loadFromExtension('iter8_ldap_record', $config);
         $container->compile();
 
@@ -97,11 +117,8 @@ class Iter8LdapRecordExtensionTest extends TestCase
     private function createContainer(): ContainerBuilder
     {
         return new ContainerBuilder(new ParameterBag([
-            'kernel.cache_dir' => __DIR__,
-            'kernel.project_dir' => __DIR__,
-            'kernel.charset' => 'UTF-8',
-            'kernel.debug' => false,
-            'kernel.bundles' => ['Iter8LdapRecordBundle' => true],
+            'kernel.environment' => 'test',
+            'kernel.build_dir' => sys_get_temp_dir(),
         ]));
     }
 }

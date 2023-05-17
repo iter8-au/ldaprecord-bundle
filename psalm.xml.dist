@@ -9,6 +9,7 @@
     findUnusedVariablesAndParams="true"
     findUnusedCode="true"
     findUnusedPsalmSuppress="true"
+    findUnusedBaselineEntry="true"
     ensureArrayStringOffsetsExist="true"
     ensureArrayIntOffsetsExist="true"
     cacheDirectory=".psalm"
@@ -20,10 +21,9 @@
     </plugins>
 
     <projectFiles>
-        <directory name="Resources" />
-        <directory name="DependencyInjection" />
+        <directory name="src" />
         <ignoreFiles>
-            <directory name="Tests" />
+            <directory name="tests" />
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
@@ -35,17 +35,8 @@
             </errorLevel>
         </PossiblyUndefinedMethod>
 
-        <PossiblyUndefinedStringArrayOffset>
-            <errorLevel type="suppress">
-                <file name="DependencyInjection/Iter8LdapRecordExtension.php" />
-            </errorLevel>
-        </PossiblyUndefinedStringArrayOffset>
-
-        <MixedMethodCall>
-            <errorLevel type="suppress">
-                <file name="DependencyInjection/Configuration.php" />
-            </errorLevel>
-        </MixedMethodCall>
+        <!-- Need to resolve this (see https://psalm.dev/140) -->
+        <MoreSpecificImplementedParamType errorLevel="suppress" />
 
         <PropertyNotSetInConstructor errorLevel="suppress" />
 

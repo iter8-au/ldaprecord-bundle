@@ -1,7 +1,7 @@
 LdapRecordBundle
 ================
 
-Integrates `LdapRecord`_ with Symfony 4.4/5.*.
+Integrates `LdapRecord`_ with Symfony 6.1+.
 
 LdapRecord Library
 ------------------
@@ -15,7 +15,7 @@ Run this code in your terminal of choice:
 
 .. code-block:: terminal
 
-    $ composer require iter8/ldaprecord-bundle "^1.0"
+    $ composer require iter8/ldaprecord-bundle
 
 If you don't use `Symfony Flex`_, you must enable the bundle manually in the application:
 
@@ -25,7 +25,7 @@ If you don't use `Symfony Flex`_, you must enable the bundle manually in the app
     // in older Symfony apps, enable the bundle in app/AppKernel.php
     return [
         // ...
-        Iter8\Bundle\LdapRecordBundle\Iter8LdapRecordBundle::class => ['all' => true],
+        Iter8\LdapRecordBundle\Iter8LdapRecordBundle::class => ['all' => true],
     ];
 
 Configuration
@@ -55,5 +55,5 @@ Create the following file and configure it for your application:
         auto_connect: false
 
 .. _LdapRecord: https://github.com/DirectoryTree/LdapRecord
-.. _`excellent documentation`: https://ldaprecord.com/docs/core/v2/
+.. _`excellent documentation`: https://ldaprecord.com/docs/core/v3/
 .. _`Symfony Flex`: https://symfony.com/doc/current/setup/flex.html
