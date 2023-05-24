@@ -21,7 +21,7 @@ After you have installed the package, you just need to add the bundle to your `A
     // in AppKernel::registerBundles()
     $bundles = [
         // ...
-        new Iter8\Bundle\LdapRecordBundle\Iter8LdapRecordBundle(),
+        new Iter8\LdapRecordBundle\Iter8LdapRecordBundle(),
         // ...
     ];
 

@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Iter8\Bundle\LdapRecordBundle\Tests;
+namespace Iter8\LdapRecordBundle\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 class TestCase extends PHPUnitTestCase
 {
+    /**
+     * @return array<string, string|int>
+     */
     protected function getLdapConfig(): array
     {
         /** @var resource|null $h */
@@ -21,8 +24,8 @@ class TestCase extends PHPUnitTestCase
         ldap_unbind($h);
 
         return [
-            'host' => getenv('LDAP_HOST'),
-            'port' => getenv('LDAP_PORT'),
+            'host' => (string) getenv('LDAP_HOST'),
+            'port' => (int) getenv('LDAP_PORT'),
         ];
     }
 }

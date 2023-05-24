@@ -6,8 +6,8 @@
 .gitignore export-ignore
 .php-cs-fixer.dist.php export-ignore
 .whitesource export-ignore
-/Resources/doc export-ignore
-/Tests export-ignore
+/docs export-ignore
+/tests export-ignore
 docker-compose.yml export-ignore
 phpcs.xml.dist export-ignore
 phpstan.neon.dist export-ignore

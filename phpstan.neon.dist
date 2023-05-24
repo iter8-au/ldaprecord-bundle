@@ -1,15 +1,19 @@
 parameters:
     level: 8
     treatPhpDocTypesAsCertain: false
-    reportUnmatchedIgnoredErrors: false
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+    reportUnmatchedIgnoredErrors: true
     paths:
-        - %currentWorkingDirectory%/DependencyInjection
-        - %currentWorkingDirectory%/Tests
-        - %currentWorkingDirectory%/Iter8LdapRecordBundle.php
+        - %currentWorkingDirectory%/src
+        - %currentWorkingDirectory%/tests
     ignoreErrors:
         - '#expects LDAP\\Connection#'
+        # Eh?
+        -
+            message: '#of method Iter8\\LdapRecordBundle\\Iter8LdapRecordBundle::loadExtension\(\) should be contravariant with parameter \$config \(array\) of method#'
+            path: src/Iter8LdapRecordBundle.php
+        -
+            message: '#^Parameter \#1 \$extension of method Symfony\\Component\\DependencyInjection\\ContainerBuilder\:\:registerExtension\(\) expects Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface, Symfony\\Component\\DependencyInjection\\Extension\\ExtensionInterface\|null given\.$#'
+            path: tests/Iter8LdapRecordBundleTest.php
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon

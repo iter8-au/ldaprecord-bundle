@@ -21,24 +21,18 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - php-version: 7.4
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.4.*"
-          - php-version: 8.0
-            composer-flags: "--prefer-stable"
-            symfony-require: "5.4.*"
-          - php-version: 8.0
-            composer-flags: "--prefer-stable"
-            symfony-require: "6.0.*"
-          - php-version: 8.1
-            composer-flags: "--ignore-platform-reqs"
-            symfony-require: "5.4.*"
-          - php-version: 8.1
-            composer-flags: "--ignore-platform-reqs"
-            symfony-require: "6.0.*"
           - php-version: 8.1
             composer-flags: "--ignore-platform-reqs"
             symfony-require: "6.1.*"
+          - php-version: 8.1
+            composer-flags: "--ignore-platform-reqs"
+            symfony-require: "6.2.*"
+          - php-version: 8.2
+            composer-flags: "--ignore-platform-reqs"
+            symfony-require: "6.1.*"
+          - php-version: 8.2
+            composer-flags: "--ignore-platform-reqs"
+            symfony-require: "6.2.*"
 
     services:
       ldap:
