@@ -23,16 +23,10 @@ jobs:
         include:
           - php-version: 8.1
             composer-flags: "--ignore-platform-reqs"
-            symfony-require: "6.1.*"
-          - php-version: 8.1
-            composer-flags: "--ignore-platform-reqs"
-            symfony-require: "6.2.*"
+            symfony-require: "6.3.*"
           - php-version: 8.2
             composer-flags: "--ignore-platform-reqs"
-            symfony-require: "6.1.*"
-          - php-version: 8.2
-            composer-flags: "--ignore-platform-reqs"
-            symfony-require: "6.2.*"
+            symfony-require: "6.3.*"
 
     services:
       ldap:
