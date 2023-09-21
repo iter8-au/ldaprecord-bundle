@@ -4,7 +4,7 @@ services:
   ldap:
     image: bitnami/openldap
     ports:
-      - 3389:3389
+      - "3389:3389"
     environment:
       - LDAP_ADMIN_USERNAME=admin
       - LDAP_ADMIN_PASSWORD=a_great_password

@@ -15,7 +15,7 @@ on:
 jobs:
   phpunit:
     name: "PHPUnit on PHP ${{ matrix.php-version }} with Symfony ${{ matrix.symfony-require }}"
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
 
     strategy:
       fail-fast: true
@@ -38,7 +38,7 @@ jobs:
       ldap:
         image: bitnami/openldap
         ports:
-          - 3389:3389
+          - "3389:3389"
         env:
           LDAP_ADMIN_USERNAME: admin
           LDAP_ADMIN_PASSWORD: a_great_password

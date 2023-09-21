@@ -33,9 +33,6 @@
         "squizlabs/php_codesniffer": "^3.5",
         "vimeo/psalm": "^5.0"
     },
-    "conflict": {
-        "tightenco/collect": "<5.6"
-    },
     "autoload": {
         "psr-4": {
             "Iter8\\LdapRecordBundle\\": "src/"

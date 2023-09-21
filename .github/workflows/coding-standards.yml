@@ -7,7 +7,7 @@ on: [push, pull_request]
 jobs:
   coding-standards:
     name: "Coding Standards on PHP ${{ matrix.php-version }}"
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-22.04"
 
     strategy:
       matrix:
