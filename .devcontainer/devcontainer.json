@@ -1,0 +1,39 @@
+{
+    // https://code.visualstudio.com/docs/devcontainers/containers
+    "name": "iter8 LDAPRecord Bundle",
+    "dockerComposeFile": [
+        "../docker-compose.yml",
+        "docker-compose.yml"
+    ],
+    "service": "php",
+    "workspaceFolder": "/workspace",
+    "features": {
+        // https://github.com/devcontainers/features/tree/main/src/common-utils
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": false,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000",
+            "upgradePackages": "true"
+        }
+    },
+    "overrideFeatureInstallOrder": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "php.validate.executablePath": "/usr/local/bin/php",
+                "terminal.integrated.defaultProfile.linux": "bash"
+            },
+            "extensions": [
+                "xdebug.php-debug"
+            ]
+        }
+    },
+    "postCreateCommand": "composer update",
+    "remoteUser": "vscode",
+    "shutdownAction": "stopCompose"
+}
