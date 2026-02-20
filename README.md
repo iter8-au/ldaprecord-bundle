@@ -28,7 +28,7 @@ After you have installed the package, you just need to add the bundle to your `A
 Configuration
 -------------
 
-[LdapRecord installation](https://ldaprecord.com/docs/core/v2/installation)
+[LdapRecord installation](https://ldaprecord.com/docs/core/v3/installation)
 
 [GA Image]: https://github.com/iter8-au/ldaprecord-bundle/actions/workflows/continuous-integration.yml/badge.svg
 [GA Link]: https://github.com/iter8-au/ldaprecord-bundle/actions/workflows/continuous-integration.yml
